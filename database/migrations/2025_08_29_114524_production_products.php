@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('po_id');
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('grade_id');
-            $table->integer('qty',20)->nullable();
+            $table->integer('qty')->nullable();
             $table->string('size', 225)->nullable();
             $table->string('item_name', 150)->nullable();
             $table->string('modal_no', 150)->nullable();

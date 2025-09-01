@@ -14,8 +14,8 @@ return new class extends Migration
             $table->decimal('run_hours_at_service', 6, 2)->nullable(); // Increased precision for realistic values
             $table->date('last_maintenance_date')->nullable(); // Removed trailing space
             $table->text('remarks')->nullable(); // Removed trailing space
-            $table->samllInteger('cycle_days')->nullable(); 
-            $table->samllInteger('cycle_month')->nullable(); 
+            $table->smallInteger('cycle_days')->nullable(); 
+            $table->smallInteger('cycle_month')->nullable(); 
             $table->longText('message')->nullable(); 
             $table->smallInteger('status')->nullable();
 

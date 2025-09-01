@@ -17,11 +17,14 @@ return new class extends Migration
             $table->string('city')->nullable();
 
             $table->unsignedBigInteger('state_id')->nullable(); // Define the column first
-            $table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
 
             $table->string('zip_code')->nullable();
             $table->smallInteger('status')->nullable();
             $table->unsignedBigInteger('created_by')->nullable(); // Better for referencing users
+
+            // Relations
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
 
             $table->timestamps();
             $table->softDeletes();

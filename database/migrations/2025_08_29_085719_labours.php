@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('par_hour_cost',10, 2)->nullable();
             $table->decimal('overtime_hourly_rate', 10, 2)->nullable();
             $table->string('image',225)->nullable();
-            $table->integer('created_by', 2)->nullable();
+            $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('department_id');
             $table->tinyInteger('status')->default(1);
 

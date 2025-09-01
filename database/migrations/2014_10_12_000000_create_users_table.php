@@ -20,7 +20,23 @@ return new class extends Migration
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+
+
+            $table->bigInteger('mobile')->nullable();
+            $table->string('city')->nullable();
+            $table->text('address')->nullable();
+            $table->integer('state_id')->nullable();
+            $table->string('image',225)->nullable();
+            $table->integer('user_type_id')->nullable();
+            $table->text('access_token')->nullable();
+            $table->string('token_expires_at',20)->nullable();
+            $table->text('reset_token')->nullable();
+            $table->string('reset_link_expires_at',20)->nullable();
+            $table->integer('created_by')->nullable();
+            $table->tinyInteger('status')->default(1);
+
             $table->timestamps();
+
         });
     }
 

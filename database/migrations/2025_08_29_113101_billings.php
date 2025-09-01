@@ -21,14 +21,13 @@ return new class extends Migration
             $table->string('bill_no', 50)->nullable();
             $table->date('date')->nullable();
             $table->date('delivered')->nullable();
-            $table->integer('consignee', 50)->nullable();
+            $table->integer('consignee')->nullable();
             $table->string('invoice_no', 50)->nullable();
             $table->string('order_no', 50)->nullable();
             $table->string('dispatch_through', 20)->nullable();
-            $table->string('dispatch_through', 20)->nullable();
             $table->string('dispatch_doc', 225)->nullable();
             $table->bigInteger('eway_bill')->nullable();
-            $table->timestamps('eway_date')->nullable();
+            $table->string('eway_date',50)->nullable();
             $table->string('vehicle_no', 25)->nullable();
             $table->decimal('total', 22,2)->nullable();
             $table->decimal('discount', 10,2)->nullable();

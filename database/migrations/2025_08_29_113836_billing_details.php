@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('billings', function (Blueprint $table) {
+        Schema::create('billing_details', function (Blueprint $table) {
             $table->id();
             
             // Basic Info
             $table->unsignedInteger('bill_id');
             $table->unsignedInteger('product_id');
-            $table->integer('qty',20)->nullable();
+            $table->integer('qty')->nullable();
             $table->decimal('rate', 22,2)->nullable();
             $table->decimal('amount', 10,2)->nullable();
              $table->tinyInteger('status')->default(0);
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('billings');
+        Schema::dropIfExists('billing_details');
     }
 };

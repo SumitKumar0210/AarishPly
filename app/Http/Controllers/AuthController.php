@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Mail;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','forgotPassword','resetPassword','updatePassword']]);
     }
 
     /**
@@ -142,5 +143,105 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => $expiresInSeconds
         ]);
+    }
+
+
+    public function forgotPassword(Request $request)
+    {
+      
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // Token & expiry
+        $expire_at = \Carbon\Carbon::now()->addMinutes(10); // Token valid for 10 minutes
+        $token = bin2hex(random_bytes(16)); // Plain token (to send in mail)
+
+        // Save hashed token & expiry in DB
+        $user->update([
+            'reset_token' => Hash::make($token),   
+            'reset_link_expires_at' => $expire_at
+        ]);
+
+        // Generate reset link (send plain token)
+        $url = url('/api/reset-password?id='.$user->id.'&token='.$token);
+
+        // Send mail
+        Mail::raw('Click here to reset your password: '.$url, function ($message) use ($user) {
+            $message->to('sumitkr56569@gmail.com')
+                    ->subject('Password Reset Request');
+        });
+
+        return response()->json(['message' => 'Password reset link has been sent to your email.']);
+    }
+
+
+
+    public function resetPassword(Request $request)
+    {
+       
+        $token = $request->query('token');
+        $user_id = $request->query('id');
+        if (!$token || !$user_id) {
+            return response()->json(['error' => 'Token and user ID are required'], 400);
+        }
+
+        $user = User::find($user_id);
+        
+        if(!$user)
+            {
+                return response()->json(['error' => 'User not found'], 400);
+            }
+
+           
+            
+        // Check if token is valid and not expired
+        if (!($token == $user->reset_token) || \Carbon\Carbon::now()->greaterThan($user->reset_link_expires_at)) {
+            return response()->json(['error' => 'Invalid or expired token'], 400);
+        }
+
+        return response()->json(['message' => 'token validation completed.']);
+    }
+    public function updatePassword(Request $request, $id)
+    {
+       
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|min:6|confirmed',
+            'token' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // Check if token is valid and not expired
+        if (!($request->token == $user->reset_token)) {
+            return response()->json(['error' => 'Invalid or expired token'], 400);
+        }
+
+        // Update the user's password
+        $user->update([
+            'password' => Hash::make($request->password),
+            'reset_token' => null,
+            'reset_link_expires_at' => null,
+        ]);
+
+        return response()->json(['message' => 'Password has been reset successfully.']);
     }
 }

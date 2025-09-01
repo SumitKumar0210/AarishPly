@@ -13,21 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('packing_lists', function (Blueprint $table) {
+        Schema::create('hand_tools', function (Blueprint $table) {
             $table->id();
             
             // Basic Info
-            $table->unsignedInteger('dealer_id');
-            $table->date('dispatch_date')->nullable();
-            $table->string('vehicle_no', 25)->nullable();
-            $table->text('note')->nullable();
-            $table->integer('qty')->nullable();
-            $table->integer('no_of_cartoon')->nullable();
+            $table->unsignedInteger('machine_id');
+            $table->unsignedInteger('labour_id');
+            $table->unsignedInteger('department_id');
+            $table->integer('no_of_item')->nullable();
             $table->tinyInteger('status')->default(0);
 
+           
             // Relations
-            $table->foreign('dealer_id')->references('id')->on('customers')->onDelete('set null');
-
+            $table->foreign('machine_id')->references('id')->on('machines')->onDelete('set null');
+            $table->foreign('labour_id')->references('id')->on('labours')->onDelete('set null');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
+            
             $table->timestamps();
             $table->softDeletes(); // in case you need to archive products
         });
@@ -40,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('packing_lists');
+        Schema::dropIfExists('hand_tools');
     }
 };

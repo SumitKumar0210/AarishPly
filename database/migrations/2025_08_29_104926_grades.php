@@ -13,21 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('packing_lists', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->id();
             
             // Basic Info
-            $table->unsignedInteger('dealer_id');
-            $table->date('dispatch_date')->nullable();
-            $table->string('vehicle_no', 25)->nullable();
-            $table->text('note')->nullable();
-            $table->integer('qty')->nullable();
-            $table->integer('no_of_cartoon')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('name');
             $table->tinyInteger('status')->default(0);
 
+           
             // Relations
-            $table->foreign('dealer_id')->references('id')->on('customers')->onDelete('set null');
-
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            
             $table->timestamps();
             $table->softDeletes(); // in case you need to archive products
         });
@@ -40,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('packing_lists');
+        Schema::dropIfExists('grades');
     }
 };

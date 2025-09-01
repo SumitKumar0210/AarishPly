@@ -23,6 +23,8 @@ class User extends Authenticatable implements JWTSubject // <-- implement interf
         'name',
         'email',
         'password',
+        'reset_token',
+        'reset_link_expires_at',
     ];
 
     protected $hidden = [

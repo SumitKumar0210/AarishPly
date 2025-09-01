@@ -26,18 +26,17 @@ return new class extends Migration
             $table->decimal('grand_total', 10, 2)->nullable();
             $table->decimal('expected_delivery_date', 10, 2)->nullable();
             $table->date('order_date')->nullable();
-            $table->samllInteger('credit_days')->nullable();
+            $table->smallInteger('credit_days')->nullable();
             $table->longText('material_items')->nullable();
             $table->longText('term_and_conditions')->nullable();
             $table->string('purchase_no')->nullable();
             $table->unsignedInteger('department_id')->nullable();
             $table->unsignedInteger('created_by')->nullable();
-            $table->integer('created_by', 2)->nullable();
             $table->tinyInteger('quality_status')->nullable();
             $table->tinyInteger('status')->default(0);
 
             // Relations
-            $table->foreign('vendor id')->references('id')->on('vendors')->onDelete('set null');
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('set null');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
 

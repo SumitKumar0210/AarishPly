@@ -10,14 +10,14 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id(); // Auto-incrementing BIGINT primary key
-            $table->unsignedInteger('materail_id')->nullable();
+            $table->unsignedInteger('material_id')->nullable();
             $table->integer('in_stock ')->nullable(); // Increased precision for realistic values
             $table->integer('out_stock')->nullable();  
             $table->smallInteger('status')->nullable();
 
 
             // Relations
-            $table->foreign('materail_id')->references('id')->on('materails')->onDelete('set null');
+            $table->foreign('material_id')->references('id')->on('materials')->onDelete('set null');
           
             $table->timestamps();
             $table->softDeletes();

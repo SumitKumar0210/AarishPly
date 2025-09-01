@@ -13,27 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('price_lists', function (Blueprint $table) {
+        Schema::create('manufacturing_cost', function (Blueprint $table) {
             $table->id();
             
             // Basic Info
+            $table->unsignedInteger('machine_id');
             $table->unsignedInteger('po_id');
             $table->unsignedInteger('product_id');
-            $table->date('date')->nullable();
-            $table->decimal('last_rate', 20,2)->nullable();
-            $table->decimal('actual_unit', 20,2)->nullable();
-            $table->decimal('standard_rate', 20,2)->nullable();
-            $table->decimal('last_factor', 20,2)->nullable();
-            $table->decimal('final_rate', 20,2)->nullable();
-            $table->decimal('final_factor', 20,2)->nullable();
-            $table->decimal('last_product_rate', 20,2)->nullable();
+            $table->integer('qty')->nullable();
+            $table->string('size',100)->nullable();
+            $table->decimal('rate',10, 2)->nullable();
+            $table->decimal('total_amount',10, 2)->nullable();
             $table->tinyInteger('status')->default(0);
 
            
             // Relations
-            $table->foreign('po_id')->references('id')->on('production_orders')->onDelete('set null');
+            $table->foreign('machine_id')->references('id')->on('machines')->onDelete('set null');
+            $table->foreign('po_id')->references('id')->on('purchase_orders')->onDelete('set null');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
-
+            
             $table->timestamps();
             $table->softDeletes(); // in case you need to archive products
         });
@@ -46,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('price_lists');
+        Schema::dropIfExists('manufacturing_cost');
     }
 };

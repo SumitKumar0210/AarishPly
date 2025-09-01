@@ -13,24 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('department_change_logs', function (Blueprint $table) {
+        Schema::create('production_logs', function (Blueprint $table) {
             $table->id();
             
             // Basic Info
-            $table->unsignedInteger('user_id');
             $table->unsignedInteger('po_id');
-            $table->unsignedInteger('departemt_id');
-            $table->text('reason')->nullable();
-            $table->string('in_date', 20)->nullable();
-            $table->string('out_date', 20)->nullable();
-            $table->string('image', 225)->nullable();
+            $table->tinyInteger('status')->default(0);
 
            
             // Relations
             $table->foreign('po_id')->references('id')->on('production_orders')->onDelete('set null');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('departemt_id')->references('id')->on('departments')->onDelete('set null');
-
+            
             $table->timestamps();
             $table->softDeletes(); // in case you need to archive products
         });
@@ -43,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('department_change_logs');
+        Schema::dropIfExists('production_logs');
     }
 };

@@ -13,27 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('price_lists', function (Blueprint $table) {
+        Schema::create('view_types', function (Blueprint $table) {
             $table->id();
             
             // Basic Info
             $table->unsignedInteger('po_id');
             $table->unsignedInteger('product_id');
-            $table->date('date')->nullable();
-            $table->decimal('last_rate', 20,2)->nullable();
-            $table->decimal('actual_unit', 20,2)->nullable();
-            $table->decimal('standard_rate', 20,2)->nullable();
-            $table->decimal('last_factor', 20,2)->nullable();
-            $table->decimal('final_rate', 20,2)->nullable();
-            $table->decimal('final_factor', 20,2)->nullable();
-            $table->decimal('last_product_rate', 20,2)->nullable();
+            $table->string('view_type',100)->nullable();
             $table->tinyInteger('status')->default(0);
 
            
             // Relations
-            $table->foreign('po_id')->references('id')->on('production_orders')->onDelete('set null');
+            $table->foreign('po_id')->references('id')->on('purchase_orders')->onDelete('set null');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
-
+            
             $table->timestamps();
             $table->softDeletes(); // in case you need to archive products
         });
@@ -46,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('price_lists');
+        Schema::dropIfExists('view_types');
     }
 };
