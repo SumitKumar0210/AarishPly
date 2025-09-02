@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             
             // Basic Info
-            $table->string('name');
-            $table->integer('qty')->unique()->nullable(); // Stock Keeping Unit / Product Code
+            $table->string('name')->nullable();
+            $table->integer('qty')->nullable(); // Stock Keeping Unit / Product Code
             $table->string('size')->nullable();
-            $table->decimal('rate', 2)->nullable();
-            $table->decimal('total_amount', 2)->nullable();
+            $table->decimal('rate', 10,2)->nullable();
+            $table->decimal('total_amount', 20,2)->nullable();
             $table->string('product_type', 150)->nullable();
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('material_id');

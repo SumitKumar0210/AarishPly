@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id(); // Primary Key
             $table->unsignedBigInteger('group_id');
-            $table->string('name')->unique(); 
+            $table->string('name'); 
             $table->smallInteger('status')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps(); 

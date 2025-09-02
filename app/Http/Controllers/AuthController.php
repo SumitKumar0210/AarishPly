@@ -144,8 +144,7 @@ class AuthController extends Controller
             'expires_in' => $expiresInSeconds
         ]);
     }
-
-
+    
     public function forgotPassword(Request $request)
     {
       

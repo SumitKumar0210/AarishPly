@@ -18,7 +18,7 @@ return new class extends Migration
             
             // Basic Info
             $table->unsignedInteger('created_by')->nullable();
-            $table->unsignedInteger('name');
+            $table->string('name',100);
             $table->tinyInteger('status')->default(0);
 
            

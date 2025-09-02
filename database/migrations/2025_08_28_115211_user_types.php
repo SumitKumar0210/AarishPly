@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('user_types', function (Blueprint $table) {
             $table->id(); // Primary Key
-            $table->string('name')->unique(); // e.g. Admin, Customer, Manager
+            $table->string('name'); 
             $table->smallInteger('status')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps(); // created_at, updated_at

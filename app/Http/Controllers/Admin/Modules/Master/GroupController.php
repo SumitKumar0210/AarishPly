@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
 
 class GroupController extends Controller
 {
-    public function getData(Request $request){
+    public function getData(Request $request)
+    {
         try{
             $group = Group::orderBy('id','desc')->paginate(10);
             return response()->json($group);
@@ -19,16 +22,20 @@ class GroupController extends Controller
         
     }
 
-
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         try{
             
             $request->validate([
-                'name' => 'required|string|max:255|unique:groups,name',
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('groups', 'name')->whereNull('deleted_at'),
+                ],
             ]);
 
             $group = new Group();
-
             $group->name = $request->name;
             $group->created_by = auth()->user()->id;
             $group->status = $request->status ?? 0;
@@ -41,21 +48,14 @@ class GroupController extends Controller
         
     }
 
-
-
-    public function edit(Request $request, $id){
+    public function edit(Request $request, $id)
+    {
         try{
-
-
             $group =Group::find($id);
 
             if(!$group){
                 return response()->json(['error' => 'Group not found'], 404);
             }
-
-            
-
-            
             return response()->json(['message' => 'Group fetch  successfully',
                 'data' => $group]);
         }catch(\Exception $e){
@@ -64,28 +64,30 @@ class GroupController extends Controller
         
     }
 
-
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         try{
-
             $request->validate([
-            'name' => 'required|string|max:255|unique:groups,name,' . $id,
-            'status' => 'nullable|in:0,1'
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('groups', 'name')
+                        ->ignore($id) 
+                        ->whereNull('deleted_at'), 
+                ],
+                'status' => 'nullable|in:0,1',
             ]);
-
             $group =Group::find($id);
 
             if(!$group){
                 return response()->json(['error' => 'Group not found'], 404);
             }
-
-            
             $group->name = $request->name;
             $group->created_by = auth()->user()->id;
             $group->status = $request->status ?? $group->status;
             $group->save();
 
-            
             return response()->json(['message' => 'Group updated  successfully',
                 'data' => $group]);
         }catch(\Exception $e){
@@ -94,21 +96,15 @@ class GroupController extends Controller
         
     }
 
-
-
     public function delete(Request $request, $id){
         try{
-
             $group =Group::find($id);
 
             if(!$group){
                 return response()->json(['error' => 'Group not found'], 404);
             }
 
-            
             $group->delete();
-
-            
             return response()->json(['message' => 'Group deleted  successfully']);
         }catch(\Exception $e){
             return response()->json(['error' => 'Failed to fetch group', $e->getMessage()], 500);

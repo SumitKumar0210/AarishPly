@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->unsignedInteger('unit_of_measurement_id');
+            $table->integer('unit_of_measurement_id');
             $table->string('size', 225)->nullable();
             $table->decimal('price', 10, 2)->nullable(); // Corrected precision and scale
             $table->text('remark')->nullable(); // Removed trailing space

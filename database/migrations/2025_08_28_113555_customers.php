@@ -12,12 +12,12 @@ return new class extends Migration
             $table->id(); // Auto-incrementing BIGINT primary key
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->nullable();
+            $table->string('mobile', 15)->nullable();
             $table->string('address')->nullable();
-            $table->string('alternate_mobile')->nullable();
+            $table->string('alternate_mobile', 15)->nullable();
             $table->string('city')->nullable();
 
-            // $table->unsignedBigInteger('state_id')->nullable(); // Define the column first
+            $table->unsignedBigInteger('state_id')->nullable(); // Define the column first
             // $table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
 
             $table->string('zip_code')->nullable();
