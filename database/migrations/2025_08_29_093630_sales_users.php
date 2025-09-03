@@ -12,13 +12,13 @@ return new class extends Migration
             $table->id(); // Auto-incrementing BIGINT primary key
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
+            $table->string('mobile', 15)->nullable();
+            $table->text('address')->nullable();
+            $table->string('city', 100)->nullable();
 
             $table->unsignedBigInteger('state_id')->nullable(); // Define the column first
 
-            $table->string('zip_code')->nullable();
+            $table->string('zip_code', 50)->nullable();
             $table->smallInteger('status')->nullable();
             $table->unsignedBigInteger('created_by')->nullable(); // Better for referencing users
 

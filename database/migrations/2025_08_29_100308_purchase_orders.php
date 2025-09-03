@@ -24,7 +24,7 @@ return new class extends Migration
             $table->decimal('cariage_amount', 10, 2)->nullable();
             $table->decimal('subtotal', 10, 2)->nullable();
             $table->decimal('grand_total', 10, 2)->nullable();
-            $table->decimal('expected_delivery_date', 10, 2)->nullable();
+            $table->date('expected_delivery_date')->nullable();
             $table->date('order_date')->nullable();
             $table->smallInteger('credit_days')->nullable();
             $table->longText('material_items')->nullable();

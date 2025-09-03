@@ -111,4 +111,23 @@ class GradeController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $grade =Grade::find($id);
+
+            if(!$grade){
+                return response()->json(['error' => 'Grade not found'], 404);
+            }
+            $grade->status= !$grade->status;
+            $grade->save();
+
+            return response()->json(['message' => 'Grade status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  grade', $e->getMessage()], 500);
+        }
+        
+    }
 }

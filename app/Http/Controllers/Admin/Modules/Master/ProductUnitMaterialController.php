@@ -121,4 +121,23 @@ class ProductUnitMaterialController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $unitMaterial =ProductUnitMaterial::find($id);
+
+            if(!$unitMaterial){
+                return response()->json(['error' => 'Product unit material not found'], 404);
+            }
+            $unitMaterial->status= !$unitMaterial->status;
+            $unitMaterial->save();
+
+            return response()->json(['message' => 'Product unit material status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch user product unit material', $e->getMessage()], 500);
+        }
+        
+    }
 }

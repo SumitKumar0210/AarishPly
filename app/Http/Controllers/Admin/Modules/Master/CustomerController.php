@@ -133,4 +133,23 @@ class CustomerController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $customer =Customer::find($id);
+
+            if(!$customer){
+                return response()->json(['error' => 'Customer not found'], 404);
+            }
+            $customer->status= !$customer->status;
+            $customer->save();
+
+            return response()->json(['message' => 'Customer status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  customer', $e->getMessage()], 500);
+        }
+        
+    }
 }

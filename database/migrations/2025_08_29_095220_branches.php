@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->id(); // Auto-incrementing BIGINT primary key
             $table->string('name', 100);
-            $table->bigInteger('mobile ')->nullable(); // Increased precision for realistic values
+            $table->bigInteger('mobile')->nullable(); // Increased precision for realistic values
             $table->text('address')->nullable();  
             $table->smallInteger('status')->nullable();
 

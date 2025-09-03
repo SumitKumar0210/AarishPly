@@ -124,7 +124,8 @@ class ProductController extends Controller
         
     }
 
-    public function delete(Request $request, $id){
+    public function delete(Request $request, $id)
+    {
         try{
 
             $product =Product::find($id);
@@ -137,6 +138,25 @@ class ProductController extends Controller
             return response()->json(['message' => 'Product deleted  successfully']);
         }catch(\Exception $e){
             return response()->json(['error' => 'Failed to delete product', $e->getMessage()], 500);
+        }
+        
+    }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $product =Product::find($id);
+
+            if(!$product){
+                return response()->json(['error' => 'Product not found'], 404);
+            }
+            $product->status= !$product->status;
+            $product->save();
+
+            return response()->json(['message' => 'Product status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  product', $e->getMessage()], 500);
         }
         
     }

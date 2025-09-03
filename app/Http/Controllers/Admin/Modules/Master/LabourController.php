@@ -133,4 +133,23 @@ class LabourController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $labour =Labour::find($id);
+
+            if(!$labour){
+                return response()->json(['error' => 'Labour not found'], 404);
+            }
+            $labour->status= !$labour->status;
+            $labour->save();
+
+            return response()->json(['message' => 'Labour status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  labour', $e->getMessage()], 500);
+        }
+        
+    }
 }

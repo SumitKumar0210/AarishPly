@@ -16,6 +16,14 @@ use App\Http\Controllers\Admin\Modules\Master\ProductUnitMaterialController;
 use App\Http\Controllers\Admin\Modules\Master\LabourController;
 use App\Http\Controllers\Admin\Modules\Master\CustomerController;
 use App\Http\Controllers\Admin\Modules\Master\SalesUserController;
+use App\Http\Controllers\Admin\Modules\Master\MachineController;
+use App\Http\Controllers\Admin\Modules\Master\BranchController;
+use App\Http\Controllers\Admin\Modules\Master\StockController;
+use App\Http\Controllers\Admin\modules\Purchaese\PurchaseOrderController;
+use App\Http\Controllers\Admin\modules\Purchaese\PurchaseInwardLogController;
+use App\Http\Controllers\Admin\modules\Purchaese\PurchaseMaterialController;
+use App\Http\Controllers\Admin\modules\Quotation\QuotationOrderController;
+use App\Http\Controllers\Admin\modules\Production\ProductionOrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -58,6 +66,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [UserTypeController::class, 'edit']);
         Route::post('update/{id}', [UserTypeController::class, 'update']);
         Route::post('delete/{id}', [UserTypeController::class, 'delete']);
+        Route::post('status-update', [UserTypeController::class, 'statusUpdate']);
     });
 
 
@@ -67,6 +76,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [DepartmentController::class, 'edit']);
         Route::post('update/{id}', [DepartmentController::class, 'update']);
         Route::post('delete/{id}', [DepartmentController::class, 'delete']);
+        Route::post('status-update', [DepartmentController::class, 'statusUpdate']);
     });
 
 
@@ -76,6 +86,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [GroupController::class, 'edit']);
         Route::post('update/{id}', [GroupController::class, 'update']);
         Route::post('delete/{id}', [GroupController::class, 'delete']);
+        Route::post('status-update', [GroupController::class, 'statusUpdate']);
     });
    
     
@@ -85,6 +96,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [GradeController::class, 'edit']);
         Route::post('update/{id}', [GradeController::class, 'update']);
         Route::post('delete/{id}', [GradeController::class, 'delete']);
+        Route::post('status-update', [GradeController::class, 'statusUpdate']);
     });
    
     
@@ -94,6 +106,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [CategoryController::class, 'edit']);
         Route::post('update/{id}', [CategoryController::class, 'update']);
         Route::post('delete/{id}', [CategoryController::class, 'delete']);
+        Route::post('status-update', [CategoryController::class, 'statusUpdate']);
     });
    
     
@@ -103,6 +116,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [VendorController::class, 'edit']);
         Route::post('update/{id}', [VendorController::class, 'update']);
         Route::post('delete/{id}', [VendorController::class, 'delete']);
+        Route::post('status-update', [VendorController::class, 'statusUpdate']);
     });
    
     
@@ -112,6 +126,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [UnitOfMeasurementController::class, 'edit']);
         Route::post('update/{id}', [UnitOfMeasurementController::class, 'update']);
         Route::post('delete/{id}', [UnitOfMeasurementController::class, 'delete']);
+        Route::post('status-update', [UnitOfMeasurementController::class, 'statusUpdate']);
     });
    
     
@@ -121,6 +136,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [MaterialController::class, 'edit']);
         Route::post('update/{id}', [MaterialController::class, 'update']);
         Route::post('delete/{id}', [MaterialController::class, 'delete']);
+        Route::post('status-update', [MaterialController::class, 'statusUpdate']);
     });
    
     
@@ -130,6 +146,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [ProductController::class, 'edit']);
         Route::post('update/{id}', [ProductController::class, 'update']);
         Route::post('delete/{id}', [ProductController::class, 'delete']);
+        Route::post('status-update', [ProductController::class, 'statusUpdate']);
     });
    
     
@@ -139,6 +156,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [ProductUnitMaterialController::class, 'edit']);
         Route::post('update/{id}', [ProductUnitMaterialController::class, 'update']);
         Route::post('delete/{id}', [ProductUnitMaterialController::class, 'delete']);
+        Route::post('status-update', [ProductUnitMaterialController::class, 'statusUpdate']);
     });
    
     
@@ -148,6 +166,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [LabourController::class, 'edit']);
         Route::post('update/{id}', [LabourController::class, 'update']);
         Route::post('delete/{id}', [LabourController::class, 'delete']);
+        Route::post('status-update', [LabourController::class, 'statusUpdate']);
     });
    
     
@@ -157,6 +176,7 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [CustomerController::class, 'edit']);
         Route::post('update/{id}', [CustomerController::class, 'update']);
         Route::post('delete/{id}', [CustomerController::class, 'delete']);
+        Route::post('status-update', [CustomerController::class, 'statusUpdate']);
     });
    
     
@@ -166,6 +186,87 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
         Route::post('edit/{id}', [SalesUserController::class, 'edit']);
         Route::post('update/{id}', [SalesUserController::class, 'update']);
         Route::post('delete/{id}', [SalesUserController::class, 'delete']);
+        Route::post('status-update', [SalesUserController::class, 'statusUpdate']);
+    });
+   
+    
+    Route::group(['prefix' => 'machine'], function ($router) {
+        Route::get('get-data', [MachineController::class, 'getData']);
+        Route::post('store', [MachineController::class, 'store']);
+        Route::post('edit/{id}', [MachineController::class, 'edit']);
+        Route::post('update/{id}', [MachineController::class, 'update']);
+        Route::post('delete/{id}', [MachineController::class, 'delete']);
+        Route::post('status-update', [MachineController::class, 'statusUpdate']);
+    });
+   
+    
+    Route::group(['prefix' => 'branch'], function ($router) {
+        Route::get('get-data', [BranchController::class, 'getData']);
+        Route::post('store', [BranchController::class, 'store']);
+        Route::post('edit/{id}', [BranchController::class, 'edit']);
+        Route::post('update/{id}', [BranchController::class, 'update']);
+        Route::post('delete/{id}', [BranchController::class, 'delete']);
+        Route::post('status-update', [BranchController::class, 'statusUpdate']);
+    });
+   
+    
+    Route::group(['prefix' => 'stock'], function ($router) {
+        Route::get('get-data', [StockController::class, 'getData']);
+        Route::post('store', [StockController::class, 'store']);
+        Route::post('edit/{id}', [StockController::class, 'edit']);
+        Route::post('update/{id}', [StockController::class, 'update']);
+        Route::post('delete/{id}', [StockController::class, 'delete']);
+        Route::post('status-update', [StockController::class, 'statusUpdate']);
+    });
+
+
+    Route::group(['prefix' => 'purchase-order'], function ($router) {
+        Route::get('get-data', [PurchaseOrderController::class, 'getData']);
+        Route::post('store', [PurchaseOrderController::class, 'store']);
+        Route::post('edit/{id}', [PurchaseOrderController::class, 'edit']);
+        Route::post('update/{id}', [PurchaseOrderController::class, 'update']);
+        Route::post('delete/{id}', [PurchaseOrderController::class, 'delete']);
+        Route::post('status-update', [PurchaseOrderController::class, 'statusUpdate']);
+    });
+
+
+    Route::group(['prefix' => 'purchase-inward'], function ($router) {
+        Route::get('get-data', [PurchaseInwardLogController::class, 'getData']);
+        Route::post('store', [PurchaseInwardLogController::class, 'store']);
+        Route::post('edit/{id}', [PurchaseInwardLogController::class, 'edit']);
+        Route::post('update/{id}', [PurchaseInwardLogController::class, 'update']);
+        Route::post('delete/{id}', [PurchaseInwardLogController::class, 'delete']);
+        Route::post('status-update', [PurchaseInwardLogController::class, 'statusUpdate']);
+    });
+
+
+    Route::group(['prefix' => 'purchase-material'], function ($router) {
+        Route::get('get-data', [PurchaseMaterialController::class, 'getData']);
+        Route::post('store', [PurchaseMaterialController::class, 'store']);
+        Route::post('edit/{id}', [PurchaseMaterialController::class, 'edit']);
+        Route::post('update/{id}', [PurchaseMaterialController::class, 'update']);
+        Route::post('delete/{id}', [PurchaseMaterialController::class, 'delete']);
+        Route::post('status-update', [PurchaseMaterialController::class, 'statusUpdate']);
+    });
+
+
+    Route::group(['prefix' => 'quotation-order'], function ($router) {
+        Route::get('get-data', [QuotationOrderController::class, 'getData']);
+        Route::post('store', [QuotationOrderController::class, 'store']);
+        Route::post('edit/{id}', [QuotationOrderController::class, 'edit']);
+        Route::post('update/{id}', [QuotationOrderController::class, 'update']);
+        Route::post('delete/{id}', [QuotationOrderController::class, 'delete']);
+        Route::post('status-update', [QuotationOrderController::class, 'statusUpdate']);
+    });
+
+
+    Route::group(['prefix' => 'production-order'], function ($router) {
+        Route::get('get-data', [ProductionOrderController::class, 'getData']);
+        Route::post('store', [ProductionOrderController::class, 'store']);
+        Route::post('edit/{id}', [ProductionOrderController::class, 'edit']);
+        Route::post('update/{id}', [ProductionOrderController::class, 'update']);
+        Route::post('delete/{id}', [ProductionOrderController::class, 'delete']);
+        Route::post('status-update', [ProductionOrderController::class, 'statusUpdate']);
     });
    
     

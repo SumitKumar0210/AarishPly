@@ -115,4 +115,22 @@ class UserTypeController extends Controller
         }
         
     }
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $userType =UserType::find($id);
+
+            if(!$userType){
+                return response()->json(['error' => 'User type not found'], 404);
+            }
+            $userType->status= $request->status ?? $userType->status;
+            $userType->save();
+
+            return response()->json(['message' => 'User type status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch user types', $e->getMessage()], 500);
+        }
+        
+    }
 }

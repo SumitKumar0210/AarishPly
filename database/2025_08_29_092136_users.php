@@ -32,7 +32,6 @@ return new class extends Migration
             $table->softDeletes();
 
             // Foreign keys
-            $table->foreign('state_id')->references('id')->on('status')->onDelete('set null');
             $table->foreign('user_type_id')->references('id')->on('user_types')->onDelete('set null');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
         });

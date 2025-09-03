@@ -110,4 +110,23 @@ class UnitOfMeasurementController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $unit =UnitOfMeasurement::find($id);
+
+            if(!$unit){
+                return response()->json(['error' => 'Unit of measurment not found'], 404);
+            }
+            $unit->status= !$unit->status;
+            $unit->save();
+
+            return response()->json(['message' => 'Unit of measurment status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  unit of measurment', $e->getMessage()], 500);
+        }
+        
+    }
 }

@@ -111,4 +111,23 @@ class GroupController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $group =Group::find($id);
+
+            if(!$group){
+                return response()->json(['error' => 'Group not found'], 404);
+            }
+            $group->status= !$group->status;
+            $group->save();
+
+            return response()->json(['message' => 'Group status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  group', $e->getMessage()], 500);
+        }
+        
+    }
 }

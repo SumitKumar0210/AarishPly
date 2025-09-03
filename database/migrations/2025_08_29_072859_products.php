@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('size')->nullable();
             $table->string('color', 100)->nullable();
             $table->string('hsn_code', 100)->nullable();
-            $table->decimal('rrp', 2)->nullable();
+            $table->decimal('rrp', 20,2)->nullable();
             $table->string('product_type', 150)->nullable();
             // $table->unsignedInteger('dealer_id', 150)->nullable();
             $table->unsignedInteger('group_id');

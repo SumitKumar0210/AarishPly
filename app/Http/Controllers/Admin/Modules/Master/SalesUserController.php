@@ -128,4 +128,23 @@ class SalesUserController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $sales_user =SalesUser::find($id);
+
+            if(!$sales_user){
+                return response()->json(['error' => 'Sales user not found'], 404);
+            }
+            $sales_user->status= !$sales_user->status;
+            $sales_user->save();
+
+            return response()->json(['message' => 'Sales user status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  sales user', $e->getMessage()], 500);
+        }
+        
+    }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('stocks', function (Blueprint $table) {
             $table->id(); // Auto-incrementing BIGINT primary key
             $table->unsignedInteger('material_id')->nullable();
-            $table->integer('in_stock ')->nullable(); // Increased precision for realistic values
+            $table->integer('in_stock')->nullable(); // Increased precision for realistic values
             $table->integer('out_stock')->nullable();  
             $table->smallInteger('status')->nullable();
 

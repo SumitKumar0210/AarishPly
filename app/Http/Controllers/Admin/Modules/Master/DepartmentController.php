@@ -114,4 +114,23 @@ class DepartmentController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $department =Department::find($id);
+
+            if(!$department){
+                return response()->json(['error' => 'Department not found'], 404);
+            }
+            $department->status= !$department->status;
+            $department->save();
+
+            return response()->json(['message' => 'Department status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  department', $e->getMessage()], 500);
+        }
+        
+    }
 }

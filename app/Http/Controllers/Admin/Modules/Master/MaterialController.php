@@ -145,5 +145,24 @@ class MaterialController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $material =Material::find($id);
+
+            if(!$material){
+                return response()->json(['error' => 'Material not found'], 404);
+            }
+            $material->status= !$material->status;
+            $material->save();
+
+            return response()->json(['message' => 'Material status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  material', $e->getMessage()], 500);
+        }
+        
+    }
 }
 

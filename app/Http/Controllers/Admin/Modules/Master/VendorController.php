@@ -124,5 +124,24 @@ class VendorController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $vendor =Vendor::find($id);
+
+            if(!$vendor){
+                return response()->json(['error' => 'Vendor not found'], 404);
+            }
+            $vendor->status= !$vendor->status;
+            $vendor->save();
+
+            return response()->json(['message' => 'Vendor status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  vendor', $e->getMessage()], 500);
+        }
+        
+    }
 }
 

@@ -115,4 +115,23 @@ class CategoryController extends Controller
         }
         
     }
+
+    public function statusUpdate(Request $request)
+    {
+        try{
+            $id = $request->id;
+            $category =Category::find($id);
+
+            if(!$category){
+                return response()->json(['error' => 'Category not found'], 404);
+            }
+            $category->status= !$category->status;
+            $category->save();
+
+            return response()->json(['message' => 'Category status updated  successfully']);
+        }catch(\Exception $e){
+            return response()->json(['error' => 'Failed to fetch  category', $e->getMessage()], 500);
+        }
+        
+    }
 }
