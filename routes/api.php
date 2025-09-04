@@ -19,11 +19,17 @@ use App\Http\Controllers\Admin\Modules\Master\SalesUserController;
 use App\Http\Controllers\Admin\Modules\Master\MachineController;
 use App\Http\Controllers\Admin\Modules\Master\BranchController;
 use App\Http\Controllers\Admin\Modules\Master\StockController;
-use App\Http\Controllers\Admin\modules\Purchaese\PurchaseOrderController;
-use App\Http\Controllers\Admin\modules\Purchaese\PurchaseInwardLogController;
-use App\Http\Controllers\Admin\modules\Purchaese\PurchaseMaterialController;
-use App\Http\Controllers\Admin\modules\Quotation\QuotationOrderController;
-use App\Http\Controllers\Admin\modules\Production\ProductionOrderController;
+use App\Http\Controllers\Admin\Modules\Purchaese\PurchaseOrderController;
+use App\Http\Controllers\Admin\Modules\Purchaese\PurchaseInwardLogController;
+use App\Http\Controllers\Admin\Modules\Purchaese\PurchaseMaterialController;
+use App\Http\Controllers\Admin\Modules\Quotation\QuotationOrderController;
+use App\Http\Controllers\Admin\Modules\Quotation\QuotationProductController;
+use App\Http\Controllers\Admin\Modules\Production\ProductionOrderController;
+use App\Http\Controllers\Admin\Modules\HandToolController;
+use App\Http\Controllers\Admin\Modules\MachineOperatorController;
+use App\Http\Controllers\Admin\Modules\SalesReturnController;
+use App\Http\Controllers\Admin\Modules\MaintenanceLogController;
+use App\Http\Controllers\Admin\Modules\TentativeItemController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -260,15 +266,76 @@ Route::group(['middleware' => ['api', 'check.jwt'],'prefix' => 'admin'], functio
     });
 
 
-    Route::group(['prefix' => 'production-order'], function ($router) {
-        Route::get('get-data', [ProductionOrderController::class, 'getData']);
-        Route::post('store', [ProductionOrderController::class, 'store']);
-        Route::post('edit/{id}', [ProductionOrderController::class, 'edit']);
-        Route::post('update/{id}', [ProductionOrderController::class, 'update']);
-        Route::post('delete/{id}', [ProductionOrderController::class, 'delete']);
-        Route::post('status-update', [ProductionOrderController::class, 'statusUpdate']);
+    Route::group(['prefix' => 'quotation-product'], function ($router) {
+        Route::get('get-data', [QuotationProductController::class, 'getData']);
+        Route::post('store', [QuotationProductController::class, 'store']);
+        Route::post('edit/{id}', [QuotationProductController::class, 'edit']);
+        Route::post('update/{id}', [QuotationProductController::class, 'update']);
+        Route::post('delete/{id}', [QuotationProductController::class, 'delete']);
+        Route::post('status-update', [QuotationProductController::class, 'statusUpdate']);
+        Route::post('revise', [QuotationProductController::class, 'reviseQuotation']);
     });
+
+
+    // Route::group(['prefix' => 'production-order'], function ($router) {
+    //     Route::get('get-data', [ProductionOrderController::class, 'getData']);
+    //     Route::post('store', [ProductionOrderController::class, 'store']);
+    //     Route::post('edit/{id}', [ProductionOrderController::class, 'edit']);
+    //     Route::post('update/{id}', [ProductionOrderController::class, 'update']);
+    //     Route::post('delete/{id}', [ProductionOrderController::class, 'delete']);
+    //     Route::post('status-update', [ProductionOrderController::class, 'statusUpdate']);
+    // });
    
+
+    Route::group(['prefix' => 'hand-tool'], function ($router) {
+        Route::get('get-data', [HandToolController::class, 'getData']);
+        Route::post('store', [HandToolController::class, 'store']);
+        Route::post('edit/{id}', [HandToolController::class, 'edit']);
+        Route::post('update/{id}', [HandToolController::class, 'update']);
+        Route::post('delete/{id}', [HandToolController::class, 'delete']);
+        Route::post('status-update', [HandToolController::class, 'statusUpdate']);
+    });
+
+
+    Route::group(['prefix' => 'machine-operator'], function ($router) {
+        Route::get('get-data', [MachineOperatorController::class, 'getData']);
+        Route::post('store', [MachineOperatorController::class, 'store']);
+        Route::post('edit/{id}', [MachineOperatorController::class, 'edit']);
+        Route::post('update/{id}', [MachineOperatorController::class, 'update']);
+        Route::post('delete/{id}', [MachineOperatorController::class, 'delete']);
+        Route::post('status-update', [MachineOperatorController::class, 'statusUpdate']);
+    });
+
+
+    Route::group(['prefix' => 'sales-return'], function ($router) {
+        Route::get('get-data', [SalesReturnController::class, 'getData']);
+        Route::post('store', [SalesReturnController::class, 'store']);
+        Route::post('edit/{id}', [SalesReturnController::class, 'edit']);
+        Route::post('update/{id}', [SalesReturnController::class, 'update']);
+        Route::post('delete/{id}', [SalesReturnController::class, 'delete']);
+        Route::post('status-update', [SalesReturnController::class, 'statusUpdate']);
+    });
+
+
+    Route::group(['prefix' => 'maintenance-log'], function ($router) {
+        Route::get('get-data', [MaintenanceLogController::class, 'getData']);
+        Route::post('store', [MaintenanceLogController::class, 'store']);
+        Route::post('edit/{id}', [MaintenanceLogController::class, 'edit']);
+        Route::post('update/{id}', [MaintenanceLogController::class, 'update']);
+        Route::post('delete/{id}', [MaintenanceLogController::class, 'delete']);
+        Route::post('status-update', [MaintenanceLogController::class, 'statusUpdate']);
+    });
+
+
+    Route::group(['prefix' => 'tentative-item'], function ($router) {
+        Route::get('get-data', [TentativeItemController::class, 'getData']);
+        Route::post('store', [TentativeItemController::class, 'store']);
+        Route::post('edit/{id}', [TentativeItemController::class, 'edit']);
+        Route::post('update/{id}', [TentativeItemController::class, 'update']);
+        Route::post('delete/{id}', [TentativeItemController::class, 'delete']);
+        Route::post('status-update', [TentativeItemController::class, 'statusUpdate']);
+    });
+
     
 
 });

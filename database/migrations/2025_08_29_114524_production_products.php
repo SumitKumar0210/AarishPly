@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             
             // Basic Info
-            $table->unsignedInteger('po_id');
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('grade_id');
+            $table->unsignedInteger('po_id')->nullable();
+            $table->unsignedInteger('product_id')->nullable();
+            $table->unsignedInteger('grade_id')->nullable();
             $table->integer('qty')->nullable();
             $table->string('size', 225)->nullable();
             $table->string('item_name', 150)->nullable();

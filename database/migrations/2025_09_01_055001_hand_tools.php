@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             
             // Basic Info
-            $table->unsignedInteger('machine_id');
+            $table->unsignedInteger('material_id');
             $table->unsignedInteger('labour_id');
             $table->unsignedInteger('department_id');
             $table->integer('no_of_item')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
 
            
             // Relations
-            $table->foreign('machine_id')->references('id')->on('machines')->onDelete('set null');
+            $table->foreign('material_id')->references('id')->on('materials')->onDelete('set null');
             $table->foreign('labour_id')->references('id')->on('labours')->onDelete('set null');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
             

@@ -28,6 +28,8 @@ return new class extends Migration
             $table->unsignedInteger('sale_user_id')->nullable();
             $table->string('unique_code', 150)->unique()->nullable();
             $table->string('image', 225)->nullable();
+            $table->text('decline_reason')->nullable();
+            $table->text('remark')->nullable();
 
             $table->tinyInteger('revised')->default(0);
             $table->tinyInteger('status')->default(0);

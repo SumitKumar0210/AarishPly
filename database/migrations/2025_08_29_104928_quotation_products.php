@@ -34,7 +34,7 @@ return new class extends Migration
 
            
             // Relations
-            $table->foreign('quotation_id')->references('id')->on('quotation_products')->onDelete('set null');
+            $table->foreign('quotation_id')->references('id')->on('quotations')->onDelete('set null');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('set null');
 

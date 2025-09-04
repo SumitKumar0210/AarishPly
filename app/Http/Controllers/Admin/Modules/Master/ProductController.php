@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\modules\Master;
+namespace App\Http\Controllers\Admin\Modules\Master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -47,7 +47,7 @@ class ProductController extends Controller
                 $randomName = rand(10000000, 99999999);
                 $imageName = time().'_'.$randomName . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('uploads/products/'), $imageName);
-                $product->image = '/uploads/Products/'.$imageName;
+                $product->image = '/uploads/products/'.$imageName;
 
             }
            
@@ -110,7 +110,7 @@ class ProductController extends Controller
                 $randomName = rand(10000000, 99999999);
                 $imageName = time().'_'.$randomName . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('uploads/products/'), $imageName);
-                $product->image = '/uploads/Products/'.$imageName;
+                $product->image = '/uploads/products/'.$imageName;
 
             }
             $product->status = $request->status ?? $product->status;

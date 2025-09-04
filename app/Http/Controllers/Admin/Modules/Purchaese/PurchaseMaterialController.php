@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\modules\Purchaese;
+namespace App\Http\Controllers\Admin\Modules\Purchaese;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

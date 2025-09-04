@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             
             // Basic Info
-            $table->unsignedInteger('machine_id');
-            $table->unsignedInteger('po_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('machine_id')->nullable();
+            $table->unsignedInteger('po_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->decimal('runing_hours', 6,2)->nullable();
             $table->text('remark')->nullable();
             $table->tinyInteger('status')->default(0);
